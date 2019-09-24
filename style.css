@@ -5,15 +5,15 @@
     font-family: "Comic Sans MS";
 }
 
-#delBtn, #doneBtn {
+#delButton, #doneButton {
     width: 12.5%;
     border: none;
     cursor: pointer;
+    outline: none;
     background: none;
 }
 
 #container {
-    border: 1px solid red;
     width: max-content;
     background: blanchedalmond;
     height: min-content;
@@ -29,16 +29,17 @@ h1 {
     justify-content: space-between;
 }
 
-#task {
+#task, #date {
     text-align: center;
     width: 80%;
-    border: 1px solid green;
+    border: 1px solid blanchedalmond;
     background: snow;
 }
 
 #addButton {
     width: 25%;
     font-size: 30px;
+    cursor: pointer;
     color: #218294;
     border: none;
     text-transform: uppercase;
