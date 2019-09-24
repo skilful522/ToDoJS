@@ -24,7 +24,7 @@ h1 {
     text-align: center;
 }
 
-#task-container, #input-container {
+.task-container, #input-container {
     display: flex;
     justify-content: space-between;
 }

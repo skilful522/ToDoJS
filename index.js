@@ -4,41 +4,31 @@ const textInput = document.querySelector('#textInput');
 const dateInput = document.querySelector("#dateInput");
 
 
-addButton.addEventListener('click', function () {
+addButton.addEventListener('click', () => {
     addContainer();
-    cleanTextInput();
-    cleanDateInput();
+    cleanInput(textInput, dateInput);
 });
 
-function cleanTextInput() {
+function cleanInput(textInput, dateInput) {
     textInput.value = '';
-}
-
-function cleanDateInput() {
     dateInput.value = '';
 }
 
+
+// Класс нужен лишь для того, чтобы навесить стили
 function createContainer() {
     const container = document.createElement('div');
-    container.id = 'task-container';
+    container.className = 'task-container';
     return container;
 }
 
 
-function createDoneBtn() {
-    const doneButton = document.createElement('button');
-    doneButton.id = 'doneButton';
-    doneButton.innerText = '✓';
-    doneButton.style.color = 'green';
-    return doneButton;
-}
-
-function createDelButton() {
-    const delButton = document.createElement('button');
-    delButton.id = 'delButton';
-    delButton.innerText = '✖';
-    delButton.style.color = 'red';
-    return delButton;
+function createButton(id,innerText,color) {
+    const button = document.createElement('button');
+    button.id = id;
+    button.innerText = innerText;
+    button.style.color = color;
+    return button;
 }
 
 function checkTextInput(textInput, divText) {
@@ -57,7 +47,7 @@ function createTaskDiv() {
 function createDateDiv() {
     const dateDiv = document.createElement('div');
     const today = new Date();
-    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const date = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
     dateDiv.id = 'date';
     dateDiv.innerText = dateInput.value;
     if (dateDiv.innerText === '') {
@@ -78,11 +68,11 @@ function addContainer() {
 
 function addElementIntoContainer() {
     const container = createContainer();
-    const delBtn = createDelButton();
-    const doneBtn = createDoneBtn();
+    const delBtn = createButton('delButton', '✖', 'red');
+    const doneBtn = createButton('doneButton','✓', 'green');
     const taskDiv = createTaskDiv();
     const timeDiv = createDateDiv();
-    
+
     container.appendChild(taskDiv);
     if (taskDiv.innerText !== '') {
         container.appendChild(timeDiv);
