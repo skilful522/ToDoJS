@@ -2,20 +2,18 @@ const addButton = document.querySelector("#addButton");
 const inputContainer = document.querySelector("#input-container");
 const textInput = document.querySelector('#textInput');
 const dateInput = document.querySelector("#dateInput");
-
+const mainContainer = document.querySelector("#container");
 
 addButton.addEventListener('click', () => {
     addContainer();
-    cleanInput(textInput, dateInput);
+    cleanInputs();
 });
 
-function cleanInput(textInput, dateInput) {
+function cleanInputs() {
     textInput.value = '';
     dateInput.value = '';
 }
 
-
-// Класс нужен лишь для того, чтобы навесить стили
 function createContainer() {
     const container = document.createElement('div');
     container.className = 'task-container';
@@ -23,7 +21,7 @@ function createContainer() {
 }
 
 
-function createButton(id,innerText,color) {
+function createButton(id, innerText, color) {
     const button = document.createElement('button');
     button.id = id;
     button.innerText = innerText;
@@ -46,14 +44,12 @@ function createTaskDiv() {
 
 function createDateDiv() {
     const dateDiv = document.createElement('div');
-    const today = new Date();
-    const date = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
+    const date = moment().format('YYYY-MM-DD');
     dateDiv.id = 'date';
     dateDiv.innerText = dateInput.value;
     if (dateDiv.innerText === '') {
         dateDiv.innerText = date;
     }
-    console.log(dateInput.value);
     return dateDiv;
 }
 
@@ -64,6 +60,19 @@ function addContainer() {
         inputContainer.before(task);
     }
 }
+
+mainContainer.addEventListener('click', (event) => {
+    const task = document.querySelector("#task");
+    const date = document.querySelector("#date");
+    if (event.target === document.querySelector('#doneButton')) {
+        task.style.textDecoration = 'line-through';
+        date.style.textDecoration = 'line-through';
+    }
+});
+
+/* doneBtn.addEventListener('click', function (textDiv) {
+        doneHandler(textDiv);
+    });*/
 
 
 function addElementIntoContainer() {
