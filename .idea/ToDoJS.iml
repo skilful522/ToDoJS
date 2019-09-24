@@ -8,5 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/moment-duration-format" level="application" />
+    <orderEntry type="library" name="@types/moment-shortformat" level="application" />
   </component>
 </module>
