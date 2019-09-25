@@ -65,10 +65,7 @@ tasksContainer.addEventListener('click', (event) => {
     const taskContainer = document.querySelectorAll('.task-container');
     const delButtons = document.querySelectorAll('#delButton');
     const doneButtons = document.querySelectorAll('#doneButton');
-    const tasks = document.querySelectorAll("#task");
-    const dates = document.querySelectorAll("#date");
-    //  removeTask(delButtons, event, taskContainer, tasksContainer);
-
+    const taskDateContainer = document.querySelectorAll(".task-date-container");
     for (let i = 0; i < delButtons.length; i++) {
         if (event.target === delButtons[i]) {
             for (let i = 0; i < taskContainer.length; i++) {
@@ -78,34 +75,12 @@ tasksContainer.addEventListener('click', (event) => {
             }
         } else if (event.target === doneButtons[i]) {
             if (event.target.style.color === 'green') {
-                visualizeTask(doneButtons[i], tasks[i], dates[i], 'gray', 'line-through');
-            } else {
-                visualizeTask(doneButtons[i], tasks[i], dates[i], 'green', 'none');
+                taskDateContainer[i].classList.toggle('task-date-container-cross');
             }
         }
     }
 
 });
-
-function visualizeTask(button, task, date, color, textDecoration) {
-    button.style.color = color;
-    task.style.textDecoration = textDecoration;
-    date.style.textDecoration = textDecoration;
-}
-
-/*function removeTask(buttons, event, taskContainer, tasksContainer) {
-    buttons.forEach(function (button) {
-        if (event.target === button) {
-            taskContainer.forEach(function (task) {
-                if (event.target.parentNode.id === task.id) {
-                    tasksContainer.removeChild(task);
-                }
-
-            })
-        }
-    })
-} */
-
 
 function addElementIntoContainer() {
     const id = Date.now();
