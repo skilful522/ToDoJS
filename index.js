@@ -2,11 +2,32 @@ const addButton = document.querySelector("#addButton");
 const textInput = document.querySelector('#textInput');
 const dateInput = document.querySelector("#dateInput");
 const tasksContainer = document.querySelector('#tasks-container');
-
+const taskArr = [];
+const dateArr = [];
+const sortAlphabetButton = document.querySelector("#sortAlphabet");
+const sortDateButton = document.querySelector("#sortDate");
 
 addButton.addEventListener('click', () => {
     addContainer();
     cleanInputs();
+});
+
+sortAlphabetButton.addEventListener('click', () => {
+    const tasks = document.querySelectorAll('#task');
+    const sortedTasks = taskArr.sort();
+    for (let i = 0; i < tasks.length; i++) {
+        tasks[i].innerText = sortedTasks[i];
+    }
+});
+
+sortDateButton.addEventListener('click', () => {
+    const dates = document.querySelectorAll('#date');
+    const sortedDates = dateArr.sort(function (first, second) {
+        return new Date(second) - new Date(first);
+    });
+    for (let i = 0; i < dates.length; i++) {
+        dates[i].innerText = sortedDates[i];
+    }
 });
 
 function cleanInputs() {
@@ -40,6 +61,7 @@ function createTaskDiv() {
     const taskDiv = document.createElement('div');
     taskDiv.id = 'task';
     checkTextInput(textInput, taskDiv);
+    taskArr.push(taskDiv.innerText);
     return taskDiv;
 }
 
@@ -51,6 +73,7 @@ function createDateDiv() {
     if (dateDiv.innerText === '') {
         dateDiv.innerText = date;
     }
+    dateArr.push(dateDiv.innerText);
     return dateDiv;
 }
 
@@ -59,9 +82,12 @@ function addContainer() {
     if (task !== undefined) {
         tasksContainer.appendChild(task);
     }
+
 }
 
 tasksContainer.addEventListener('click', (event) => {
+    console.log(taskArr);
+    console.log(dateArr);
     const taskContainer = document.querySelectorAll('.task-container');
     const delButtons = document.querySelectorAll('#delButton');
     const doneButtons = document.querySelectorAll('#doneButton');
