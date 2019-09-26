@@ -41,6 +41,28 @@ sortDateButton.addEventListener('click', () => {
     sortByDate(sortDateCounter);
 });
 
+tasksContainer.addEventListener('click', (event) => {
+    const taskContainer = document.querySelectorAll('.task-container');
+    const delButtons = document.querySelectorAll('#delButton');
+    const doneButtons = document.querySelectorAll('#doneButton');
+    const taskDateContainer = document.querySelectorAll(".task-date-container");
+
+    for (let i = 0; i < delButtons.length; i++) {
+        if (event.target === delButtons[i]) {
+            for (let i = 0; i < taskContainer.length; i++) {
+                if (event.target.parentNode.id === taskContainer[i].id) {
+                    tasksContainer.removeChild(taskContainer[i]);
+                }
+            }
+        } else if (event.target === doneButtons[i]) {
+            if (event.target.style.color === 'green') {
+                taskDateContainer[i].classList.toggle('task-date-container-cross');
+            }
+        }
+    }
+
+});
+
 function sortByDate(counter) {
     const dates = document.querySelectorAll('#date');
 
@@ -66,28 +88,6 @@ function sortByDate(counter) {
         }
     }
 }
-
-tasksContainer.addEventListener('click', (event) => {
-    const taskContainer = document.querySelectorAll('.task-container');
-    const delButtons = document.querySelectorAll('#delButton');
-    const doneButtons = document.querySelectorAll('#doneButton');
-    const taskDateContainer = document.querySelectorAll(".task-date-container");
-
-    for (let i = 0; i < delButtons.length; i++) {
-        if (event.target === delButtons[i]) {
-            for (let i = 0; i < taskContainer.length; i++) {
-                if (event.target.parentNode.id === taskContainer[i].id) {
-                    tasksContainer.removeChild(taskContainer[i]);
-                }
-            }
-        } else if (event.target === doneButtons[i]) {
-            if (event.target.style.color === 'green') {
-                taskDateContainer[i].classList.toggle('task-date-container-cross');
-            }
-        }
-    }
-
-});
 
 function cleanInputs() {
     textInput.value = '';
