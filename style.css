@@ -62,11 +62,24 @@ h1 {
     position: relative;
 }
 
+#multiFilter {
+    font-size: 19px;
+    cursor: pointer;
+    color: #218294;
+    border: none;
+    position: relative;
+}
+
 #sort-buttons-container {
     width: 86%;
     display: flex;
     justify-content: space-between;
  }
+
+#filter-container {
+    display: flex;
+    justify-content: space-between;
+}
 
 #sortAlphabet, #sortDate {
     cursor: pointer;
@@ -75,11 +88,19 @@ h1 {
     text-transform: uppercase;
 }
 
-#sortAlphabet {
+#filterInput, #filterDate {
+    color: black;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+#sortAlphabet{
     padding: 0 19px;
 }
 
-#sortDate {
+#sortDate{
     padding: 0 49px;
 }
 

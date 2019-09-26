@@ -6,12 +6,24 @@ const taskArr = [];
 const dateArr = [];
 const sortAlphabetButton = document.querySelector("#sortAlphabet");
 const sortDateButton = document.querySelector("#sortDate");
+const filterInput = document.querySelector("#filterInput");
+const filterDate = document.querySelector('#filterDate');
+const multiFilterButton = document.querySelector('#multiFilter');
 let sortAlphabetCounter = 0;
 let sortDateCounter = 1;
 
 addButton.addEventListener('click', () => {
     addContainer();
     cleanInputs();
+});
+
+filterInput.addEventListener('keydown', startInputFilter);
+
+filterDate.addEventListener('keydown', startDateFilter);
+
+multiFilterButton.addEventListener('click', (event) => {
+    startInputFilter(event.button);
+    startDateFilter(event.button);
 });
 
 sortAlphabetButton.addEventListener('click', () => {
@@ -62,6 +74,55 @@ tasksContainer.addEventListener('click', (event) => {
     }
 
 });
+
+function startDateFilter(event) {
+    const dates = document.querySelectorAll("#date");
+    let userFilterDate = filterDate.value;
+
+    if (event.keyCode === 13 || event === 0) {
+        if (userFilterDate === '') {
+            for (let i = 0; i < dates.length; i++) {
+                dates[i].parentNode.parentNode.style.display = 'flex';
+            }
+        } else {
+            for (let i = 0; i < dateArr.length; i++) {
+                if (userFilterDate !== dateArr[i]) {
+                    dates[i].parentNode.parentNode.style.display = 'none';
+                }
+            }
+        }
+    }
+}
+
+function startInputFilter(event) {
+    const tasks = document.querySelectorAll('#task');
+    let userFilterInput = filterInput.value;
+
+    if (event.keyCode === 13 || event === 0) {
+        if (filterInput.value === '') {
+            for (let i = 0; i < tasks.length; i++) {
+                tasks[i].parentNode.parentNode.style.display = 'flex';
+            }
+
+        } else {
+            const filteredTaskArr = taskArr.filter(function (value) {
+                return value.indexOf(userFilterInput) >= 0;
+            });
+
+            for (let i = 0; i < taskArr.length; i++) {
+                for (let j = 0; j < filteredTaskArr.length; j++) {
+                    if (taskArr[i] === filteredTaskArr[j]) {
+                        tasks[i].parentNode.parentNode.style.display = 'flex';
+                        break;
+                    } else {
+                        tasks[i].parentNode.parentNode.style.display = 'none';
+                    }
+                }
+            }
+            filterInput.value = '';
+        }
+    }
+}
 
 function sortByDate(counter) {
     const dates = document.querySelectorAll('#date');
