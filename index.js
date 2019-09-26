@@ -6,6 +6,8 @@ const taskArr = [];
 const dateArr = [];
 const sortAlphabetButton = document.querySelector("#sortAlphabet");
 const sortDateButton = document.querySelector("#sortDate");
+let sortAlphabetCounter = 0;
+let sortDateCounter = 0;
 
 addButton.addEventListener('click', () => {
     addContainer();
@@ -14,20 +16,46 @@ addButton.addEventListener('click', () => {
 
 sortAlphabetButton.addEventListener('click', () => {
     const tasks = document.querySelectorAll('#task');
-    const sortedTasks = taskArr.sort();
-    for (let i = 0; i < tasks.length; i++) {
-        tasks[i].innerText = sortedTasks[i];
+    if (taskArr.length > 1) {
+        sortAlphabetCounter++;
+        if (sortAlphabetCounter === 1) {
+            const sortedTasks = taskArr.sort();
+            for (let i = 0; i < tasks.length; i++) {
+                tasks[i].innerText = sortedTasks[i];
+            }
+        } else if (sortAlphabetCounter === 2) {
+            const sortedReversedTasks = taskArr.sort().reverse();
+            for (let i = 0; i < tasks.length; i++) {
+                tasks[i].innerText = sortedReversedTasks[i];
+                sortAlphabetCounter = 0;
+            }
+        }
     }
+
 });
 
 sortDateButton.addEventListener('click', () => {
     const dates = document.querySelectorAll('#date');
-    const sortedDates = dateArr.sort(function (first, second) {
-        return new Date(second) - new Date(first);
-    });
-    for (let i = 0; i < dates.length; i++) {
-        dates[i].innerText = sortedDates[i];
+    if (dateArr.length > 1) {
+        sortDateCounter++;
+        if (sortDateCounter === 1) {
+            const sortedDates = dateArr.sort(function (first, second) {
+                return new Date(second) - new Date(first);
+            });
+            for (let i = 0; i < dates.length; i++) {
+                dates[i].innerText = sortedDates[i];
+            }
+        } else if (sortDateCounter === 2) {
+            const reversedSortedDates = dateArr.sort(function (first, second) {
+                return new Date(first) - new Date(second);
+            });
+            for (let i = 0; i < dates.length; i++) {
+                dates[i].innerText = reversedSortedDates[i];
+            }
+            sortDateCounter = 0;
+        }
     }
+
 });
 
 function cleanInputs() {
@@ -86,8 +114,6 @@ function addContainer() {
 }
 
 tasksContainer.addEventListener('click', (event) => {
-    console.log(taskArr);
-    console.log(dateArr);
     const taskContainer = document.querySelectorAll('.task-container');
     const delButtons = document.querySelectorAll('#delButton');
     const doneButtons = document.querySelectorAll('#doneButton');
