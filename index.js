@@ -1,23 +1,13 @@
 const addButton = document.querySelector("#addButton");
-
 const textInput = document.querySelector('#textInput');
-
 const dateInput = document.querySelector("#dateInput");
-
 const tasksContainer = document.querySelector('#tasks-container');
-
 const taskArr = [];
-
 const dateArr = [];
-
 const sortAlphabetButton = document.querySelector("#sortAlphabet");
-
 const sortDateButton = document.querySelector("#sortDate");
-
 let sortAlphabetCounter = 0;
-
 let sortDateCounter = 0;
-
 
 addButton.addEventListener('click', () => {
     addContainer();
@@ -76,11 +66,8 @@ sortDateButton.addEventListener('click', () => {
 
 tasksContainer.addEventListener('click', (event) => {
     const taskContainer = document.querySelectorAll('.task-container');
-
     const delButtons = document.querySelectorAll('#delButton');
-
     const doneButtons = document.querySelectorAll('#doneButton');
-
     const taskDateContainer = document.querySelectorAll(".task-date-container");
 
     for (let i = 0; i < delButtons.length; i++) {
@@ -139,7 +126,6 @@ function createTaskDiv() {
 
 function createDateDiv() {
     const dateDiv = document.createElement('div');
-
     const date = moment().format('YYYY-MM-DD');
 
     dateDiv.id = 'date';
@@ -153,7 +139,7 @@ function createDateDiv() {
 
 function addContainer() {
     const task = addElementIntoContainer();
-
+    
     if (task !== undefined) {
         tasksContainer.appendChild(task);
     }
@@ -162,17 +148,11 @@ function addContainer() {
 
 function addElementIntoContainer() {
     const id = Date.now();
-
     const container = createContainer('task-container', id);
-
     const taskDateContainer = createContainer('task-date-container', id);
-
     const delBtn = createButton('delButton', '✖', 'red');
-
     const doneBtn = createButton('doneButton', '✓', 'green');
-
     const taskDiv = createTaskDiv();
-
     const timeDiv = createDateDiv();
 
     taskDateContainer.appendChild(taskDiv);
