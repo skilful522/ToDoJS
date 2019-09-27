@@ -136,6 +136,7 @@ function startDateFilter(event) {
 
 function showTasksContainer() {
     const tasks = document.querySelectorAll('#task');
+    
     if (tasks) {
         for (let i = 0; i < tasks.length; i++) {
             tasks[i].parentNode.parentNode.style.display = 'flex';
@@ -159,13 +160,19 @@ function startInputFilter(event) {
                 return value.indexOf(userFilterInput) >= 0;
             });
 
-            for (let i = 0; i < taskArr.length; i++) {
-                for (let j = 0; j < filteredTaskArr.length; j++) {
-                    if (taskArr[i] === filteredTaskArr[j]) {
-                        tasks[i].parentNode.parentNode.style.display = 'flex';
-                        break;
-                    } else {
-                        tasks[i].parentNode.parentNode.style.display = 'none';
+            if (filteredTaskArr.length === 0) {
+                for (let i = 0; i < tasks.length; i++) {
+                    tasks[i].parentNode.parentNode.style.display = 'none';
+                }
+            } else {
+                for (let i = 0; i < taskArr.length; i++) {
+                    for (let j = 0; j < filteredTaskArr.length; j++) {
+                        if (taskArr[i] === filteredTaskArr[j]) {
+                            tasks[i].parentNode.parentNode.style.display = 'flex';
+                             break;
+                        } else {
+                            tasks[i].parentNode.parentNode.style.display = 'none';
+                        }
                     }
                 }
             }
