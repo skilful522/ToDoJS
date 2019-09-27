@@ -4,6 +4,8 @@ const dateInput = document.querySelector("#dateInput");
 const tasksContainer = document.querySelector('#tasks-container');
 const taskArr = [];
 const dateArr = [];
+const untouchableTasksArr = [];
+const untouchableDatesArr = [];
 const sortAlphabetButton = document.querySelector("#sortAlphabet");
 const sortDateButton = document.querySelector("#sortDate");
 const filterInput = document.querySelector("#filterInput");
@@ -14,6 +16,9 @@ let sortDateCounter = 1;
 
 addButton.addEventListener('click', () => {
     addContainer();
+    resetSortTasks('taskArr');
+    resetSortDates('dateArr');
+    showTasksContainer();
     cleanInputs();
 });
 
@@ -75,6 +80,41 @@ tasksContainer.addEventListener('click', (event) => {
 
 });
 
+function resetSortTasks(unsortedTasks) {
+    const tasks = document.querySelectorAll('#task');
+
+    if (textInput.value !== '') {
+        untouchableTasksArr.push(textInput.value);
+    }
+    let storedTasks = JSON.parse(localStorage.getItem(unsortedTasks));
+
+    localStorage.setItem(unsortedTasks, JSON.stringify(untouchableTasksArr));
+    if (storedTasks) {
+        for (let i = 0; i < tasks.length - 1; i++) {
+            tasks[i].innerText = storedTasks[i];
+        }
+    }
+}
+
+function resetSortDates(unsortedDates) {
+    const dates = document.querySelectorAll("#date");
+    const date = moment().format('YYYY-MM-DD');
+
+    if (dateInput.value === '' && textInput.value !== '') {
+        untouchableDatesArr.push(date);
+    } else if (textInput.value !== '') {
+        untouchableDatesArr.push(dateInput.value);
+    }
+    let storedDates = JSON.parse(localStorage.getItem(unsortedDates));
+
+    localStorage.setItem(unsortedDates, JSON.stringify(untouchableDatesArr));
+    if (unsortedDates) {
+        for (let i = 0; i < dates.length - 1; i++) {
+            dates[i].innerText = storedDates[i];
+        }
+    }
+}
+
 function startDateFilter(event) {
     const dates = document.querySelectorAll("#date");
     let userFilterDate = filterDate.value;
@@ -92,6 +132,16 @@ function startDateFilter(event) {
             }
         }
     }
+}
+
+function showTasksContainer() {
+    const tasks = document.querySelectorAll('#task');
+    if (tasks) {
+        for (let i = 0; i < tasks.length; i++) {
+            tasks[i].parentNode.parentNode.style.display = 'flex';
+        }
+    }
+
 }
 
 function startInputFilter(event) {
@@ -184,7 +234,9 @@ function createTaskDiv() {
 
     taskDiv.id = 'task';
     checkTextInput(textInput, taskDiv);
-    taskArr.push(taskDiv.innerText);
+    if (taskDiv.innerText !== ''){
+        taskArr.push(taskDiv.innerText);
+    }
     return taskDiv;
 }
 
